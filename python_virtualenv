@@ -1,0 +1,4 @@
+#!/bin/bash
+# Script to run a Python file using venv
+source bin/activate
+bin/python $@
