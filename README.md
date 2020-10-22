@@ -30,7 +30,9 @@ Upon finding a comment that matches one of the triggering regular expressions, t
 
 ## Relevant Links
 [Beta PushShift API](https://beta.pushshift.io/redoc)
+
 [Praw API](https://praw.readthedocs.io/en/latest/)
+
 [Reddit API Rules](https://github.com/reddit-archive/reddit/wiki/API#rules)
 
 ## How to Setup
