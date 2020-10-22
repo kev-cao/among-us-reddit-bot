@@ -15,6 +15,8 @@ def build_reply(username):
 
  ﾟ　　　.　　　.&nbsp;&nbsp;&nbsp;&nbsp; , 　   　     　.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ."""
 
+    description = "\n\n&nbsp;\n\n---------------------------------\n\nYou can summon this bot using `/u/username is sus`.\n\nIf you're interested in the source code, [you can find it here.](https://github.com/defCoding/among-us-reddit-bot)"
+
     username = f'/u/{username}'
 
     # Randomly choose if the user is an imposter.
@@ -31,4 +33,7 @@ def build_reply(username):
 
     line1 = f'&nbsp;ﾟ{padding + line1 + "&nbsp;" * 5}。   .'
 
-    return reply.format(line1, line2)
+    return reply.format(line1, line2) + description
+
+if __name__ == '__main__':
+    print(build_reply('Luclid'))
