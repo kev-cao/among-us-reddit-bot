@@ -13,10 +13,11 @@ with open('blacklist.json') as blacklist_file:
 
 while True:
     try:
-        for comment in reddit_client.subreddit('all').stream.comments(skip_existing = True):
-            user = search.check_trigger(comment.body)
-            if username:
-                comment.reply(respond.build_reply(username))
+        for comment in reddit_client.subreddit('DefCodingBots').stream.comments(skip_existing = True):
+            if comment.subreddit.name not in blacklist['disallowed']:
+                username = search.check_trigger(comment.body)
+                if username:
+                    comment.reply(respond.build_reply(username))
     except Exception as e:
         traceback.print_exc()
 
