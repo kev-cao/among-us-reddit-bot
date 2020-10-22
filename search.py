@@ -10,7 +10,8 @@ def check_trigger(text):
    
     # Go through all triggers and see if one matches.
     for trigger in triggers:
-        if result := re.search(trigger, text, re.IGNORECASE):
+        result = re.search(trigger, text, re.IGNORECASE)
+        if result:
             return result.group(1)
 
     return None
