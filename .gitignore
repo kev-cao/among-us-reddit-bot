@@ -1,0 +1,10 @@
+# venv dirs and files
+bin/
+lib*/
+include/
+__pycache__/
+pyvenv*
+
+# secrets and keys
+creds.py
+settings.py
