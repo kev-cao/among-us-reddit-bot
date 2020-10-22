@@ -67,8 +67,7 @@ refresh_token = 'refresh-token'
 ```
 
 You'll also need to create a `settings.py` file. In here, you will need to create variables for `scopes`, `redirect_uri`, and `user_agent`. `scopes` and `redirect_uri`
-should be set to the values seen below, but the `user_agent` should be a secret name for your bot. According to the Reddit API rules, **you must not lie about your user_agent**.
-and others should not know the name. If the name is ever stolen, change the `user_agent` name. 
+should be set to the values seen below, but the `user_agent` should be a secret name for your bot. According to the Reddit API rules, **you must not lie about your user_agent**, and others should not know the name. If the name is ever stolen, change the `user_agent` name. 
 
 ```py
 # settings.py
