@@ -1,11 +1,23 @@
-import praw, creds, settings, search, respond, json, traceback, querypushshift
+import praw, creds, settings, search, respond, json, traceback, querypushshift, logging
 from datetime import datetime, timedelta
 
+# Set up logger.
+logging.basicConfig(
+        filename='among_us.log',
+        format='%(asctime)s - %(levelname)s: %(message)s',
+        level=logging.INFO
+        )
+logging.info('Bot starting up...')
+
 # Connect bot to reddit and create reddit instance
-reddit_client = praw.Reddit(client_id = creds.client_id,
-        client_secret = creds.client_secret,
-        refresh_token = creds.refresh_token,
-        user_agent = settings.user_agent)
+reddit_client = praw.Reddit(
+    client_id=creds.client_id,
+    client_secret=creds.client_secret,
+    refresh_token=creds.refresh_token,
+    user_agent=settings.user_agent
+    )
+
+logging.info(f'Logged in as {reddit_client.user.me()}.')
 
 # Get blacklist information.
 with open('blacklist.json') as blacklist_file:
@@ -27,15 +39,25 @@ while True:
             search_time = int(new_datetime.timestamp())
 
         # Get data from pushshift beta api.
-        for data in querypushshift.get_pushshift_comments(min_created_utc = search_time, q = 'sus'):
+        for data in querypushshift.get_pushshift_comments(min_created_utc=search_time, q='sus'):
             comment = reddit_client.comment(data['id'])
-            
+
             # Check if comment matches trigger, and if so, respond.
             if comment.subreddit.name.lower() not in blacklist['disallowed']:
                 username = search.check_trigger(comment.body)
                 if username:
+                    response = respond.build_reply(username)
+
+                    logging.info(f"Responding to {comment.author.name}'s comment...\n"
+                            + f"---\n{comment.body}\n---\n"
+                            + f"with\n---\n{response}\n---")
+
                     comment.reply(respond.build_reply(username))
+                    logging.info('Response successful.')
 
             last_comment = comment
     except Exception as e:
+        logging.error('Ran into error. Continuing loop.')
         traceback.print_exc()
+
+logging.error('Loop broken. Bot shutting down...')

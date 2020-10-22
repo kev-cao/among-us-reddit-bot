@@ -6,5 +6,5 @@ def get_pushshift_comments(**kwargs):
     kwargs is the payload.
     """
     base_url = 'https://beta.pushshift.io/search/reddit/comments'
-    request = requests.get(base_url, params = kwargs)
+    request=requests.get(base_url, params=kwargs)
     return request.json()['data']

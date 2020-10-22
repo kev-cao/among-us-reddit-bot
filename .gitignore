@@ -13,3 +13,6 @@ settings.py
 
 # swp files
 *~
+
+# logs
+*.log
