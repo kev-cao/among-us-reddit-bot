@@ -9,3 +9,6 @@ pyvenv*
 # secrets and keys
 creds.py
 settings.py
+
+# swp files
+*~
