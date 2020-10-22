@@ -1,14 +1,15 @@
-import praw
-import creds
-import settings
-import search
-import respond
+import praw, creds, settings, search, respond, json
 
 # Connect bot to reddit and create reddit instance
 reddit_client = praw.Reddit(client_id = creds.client_id,
         client_secret = creds.client_secret,
         refresh_token = creds.refresh_token,
         user_agent = settings.user_agent)
+
+# Get blacklist information.
+with open('blacklist.json') as blacklist_file:
+    blacklist = json.load(blacklist_file)
+
 
 while True:
     try:
