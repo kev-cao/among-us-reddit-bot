@@ -42,6 +42,10 @@ while True:
         for data in querypushshift.get_pushshift_comments(min_created_utc=search_time, q='sus'):
             comment = reddit_client.comment(data['id'])
 
+            if comment.created_utc > latest_comment_time:
+                logging.debug('Found new latest comment.')
+                latest_comment_time = comment.created_utc
+
             # Check if comment matches trigger, and if so, respond.
             if comment.author.name != reddit_client.user.me() and comment.subreddit.name.lower() not in blacklist['disallowed']:
                 username = search.check_trigger(comment.body)
@@ -55,9 +59,6 @@ while True:
                     comment.reply(respond.build_reply(username))
                     logging.info('Response successful.')
 
-            if comment.created_utc > latest_comment_time:
-                logging.debug('Found new latest comment.')
-                latest_comment_time = comment.created_utc
 
         time.sleep(.05)
     except Exception as e:
