@@ -15,7 +15,7 @@ def build_reply(username):
 
  ﾟ　　　.　　　.&nbsp;&nbsp;&nbsp;&nbsp; , 　   　     　.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ."""
 
-    description = "\n\n&nbsp;\n\n---------------------------------\n\nYou can summon this bot using `/u/username is sus`.\n\nIf you're interested in the source code, [you can find it here.](https://github.com/defCoding/among-us-reddit-bot)"
+    description = "\n\n&nbsp;\n\n---------------------------------\n\nYou can summon this bot using `/u/username is sus`."
 
     username = f'/u/{username}'
 
