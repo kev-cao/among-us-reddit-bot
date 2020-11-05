@@ -6,8 +6,8 @@ def check_trigger(text):
     String -> String
     """
     # List of pattern matches that signify a trigger.
-    triggers = [r'/u/(\w+)\s+((is|seems|looks|be|so|too)\s+)?(kinda\s+)?sus\b', 
-            r'\bsus\s+/u/(\w+)']
+    triggers = [r'/?u/(\w+)\s+((is|seems|looks|be|so|too)\s+)?(kinda\s+)?sus\b', 
+            r'\bsus\s+/?u/(\w+)']
    
     # Go through all triggers and see if one matches.
     for trigger in triggers:
