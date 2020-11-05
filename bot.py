@@ -1,13 +1,25 @@
 import praw, creds, settings, search, respond, json, traceback, querypushshift, logging, time
 from datetime import datetime, timedelta
+from logging.handlers import RotatingFileHandler
 
 # Set up logger.
-logging.basicConfig(
-        filename='among_us.log',
-        format='%(asctime)s - %(levelname)s: %(message)s',
-        level=logging.INFO
-        )
-logging.info('Bot starting up...')
+log_formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+log_file = 'among_us.log'
+
+log_handler = RotatingFileHandler(log_file,
+        mode='a',
+        maxBytes=5 * 1024 * 1024,
+        backupCount=2,
+        encoding=None,
+        delay=0)
+log_handler.setFormatter(log_formatter)
+log_handler.setLevel(logging.INFO)
+
+logger = logging.getLogger('root')
+logger.setLevel(logging.INFO)
+logger.addHandler(log_handler)
+
+logger.info('Bot starting up...')
 
 # Connect bot to reddit and create reddit instance
 reddit_client = praw.Reddit(
@@ -17,7 +29,7 @@ reddit_client = praw.Reddit(
     user_agent=settings.user_agent
     )
 
-logging.info(f'Logged in as {reddit_client.user.me()}.')
+logger.info(f'Logged in as {reddit_client.user.me()}.')
 
 # Get blacklist information.
 with open('blacklist.json') as blacklist_file:
@@ -43,7 +55,7 @@ while True:
             comment = reddit_client.comment(data['id'])
 
             if comment.created_utc > latest_comment_time:
-                logging.debug('Found new latest comment.')
+                logger.debug('Found new latest comment.')
                 latest_comment_time = comment.created_utc
 
             # Check if comment matches trigger, and if so, respond.
@@ -52,16 +64,16 @@ while True:
                 if username:
                     response = respond.build_reply(username)
 
-                    logging.info(f"Responding to {comment.author.name}'s comment...\n"
+                    logger.info(f"Responding to {comment.author.name}'s comment...\n"
                             + f"Link: {comment.permalink}\n"
                             + f"---\n{comment.body}\n---\n")
 
                     comment.reply(respond.build_reply(username))
-                    logging.info('Response successful.')
+                    logger.info('Response successful.')
 
 
         time.sleep(.05)
     except Exception as e:
-        logging.exception('Ran into error. Continuing loop.')
+        logger.exception('Ran into error. Continuing loop.')
 
-logging.error('Loop broken. Bot shutting down...')
+logger.error('Loop broken. Bot shutting down...')
