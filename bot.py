@@ -47,7 +47,7 @@ while True:
                 latest_comment_time = comment.created_utc
 
             # Check if comment matches trigger, and if so, respond.
-            if comment.author.name != reddit_client.user.me() and comment.subreddit.name.lower() not in blacklist['disallowed']:
+            if comment.author.name != reddit_client.user.me() and comment.subreddit.display_name.lower() not in blacklist['disallowed']:
                 username = search.check_trigger(comment.body)
                 if username:
                     response = respond.build_reply(username)
@@ -62,7 +62,6 @@ while True:
 
         time.sleep(.05)
     except Exception as e:
-        logging.error('Ran into error. Continuing loop.')
-        traceback.print_exc()
+        logging.exception('Ran into error. Continuing loop.')
 
 logging.error('Loop broken. Bot shutting down...')
