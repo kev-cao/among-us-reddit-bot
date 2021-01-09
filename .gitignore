@@ -15,4 +15,4 @@ settings.py
 *~
 
 # logs
-*.log
+*.log*

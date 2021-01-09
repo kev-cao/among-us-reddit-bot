@@ -47,7 +47,7 @@ while True:
         # Set the search_time to be a bit after the last comment we processed so we don't process comments twice.
         if latest_comment_time != 0:
             last_comment_datetime = datetime.fromtimestamp(latest_comment_time) 
-            new_datetime = last_comment_datetime + timedelta(seconds = 15) 
+            new_datetime = last_comment_datetime + timedelta(seconds = 10) 
             search_time = int(new_datetime.timestamp())
 
         # Get data from pushshift beta api.
@@ -72,7 +72,7 @@ while True:
                     logger.info('Response successful.')
 
 
-        time.sleep(.05)
+        time.sleep(5)
     except Exception as e:
         logger.exception('Ran into exception. Continuing loop.')
 

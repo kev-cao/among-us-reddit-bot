@@ -8,3 +8,4 @@ def get_pushshift_comments(**kwargs):
     base_url = 'https://beta.pushshift.io/search/reddit/comments'
     request=requests.get(base_url, params=kwargs)
     return request.json()['data']
+
