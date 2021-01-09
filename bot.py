@@ -74,6 +74,6 @@ while True:
 
         time.sleep(.05)
     except Exception as e:
-        logger.exception('Ran into error. Continuing loop.')
+        logger.exception('Ran into exception. Continuing loop.')
 
 logger.error('Loop broken. Bot shutting down...')
